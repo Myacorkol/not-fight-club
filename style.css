@@ -1,0 +1,288 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 16px;
+}
+img {
+    display: block;
+    max-width: 100%;
+}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(#ECEFFE, #CED6FB);
+}
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;      
+  color: inherit;     
+  cursor: pointer;
+  outline: none;
+}
+
+ul,
+ol {
+  list-style: none;  
+  margin: 0;         
+  padding: 0;        
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
+input {
+  padding: 10px 14px;
+  border-radius: 8px;      /* немного закругленные углы */
+  font: 16px/1.4 system-ui, sans-serif;
+  outline: none;
+  transition: 0.3s ease;   
+  border: 1px solid red;
+}
+
+input:hover {
+  border-color: #4f46e5;   
+  box-shadow: 0 0 6px rgba(79,70,229,0.4); 
+}
+
+input:focus {
+  border-color: #2563eb;   
+  box-shadow: 0 0 8px rgba(37,99,235,0.5);
+}
+
+main {
+    display: grid;
+    place-items: center;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+.container {
+    max-width: 148rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    width: 100%;
+    padding: 0 2rem;
+    background-color: azure;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.music {
+    position: absolute;
+    top: 2.4rem;
+    right: 0;
+}
+.settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20rem;
+}
+/* REGISTRATION PAGE */
+.registrationPage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background-color: aquamarine;
+    background: url('./images/game-background.webp') no-repeat;
+    background-size: cover;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.regForm {
+    width: 25rem;
+    height: 15rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    border-radius: 1rem;
+    margin: 0 auto;
+}
+.button {
+    padding: .5rem 1rem;
+    background-color: bisque;
+    color: grey;
+    transition: all .4s ease;
+}
+.regForm__btn.active {
+    background-color: darkgoldenrod;
+    color: white;
+}
+/* MAIN PAGE */
+.mainPage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: url('./images/secon-screen-bg.jpeg') no-repeat;
+    background-size: cover;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* PLAYER PAGE */
+.playerPage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background-color: lightslategray;
+    z-index: 2;
+    padding-top: 4rem;
+}
+.avatar {
+    display: flex;
+    gap: 2rem;
+}
+.avatar__item {
+    width: 20rem;
+    height: 10rem;
+}
+.avatar__img {
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+}
+/* BEFOREFIGHT PAGE */
+.beforeFightPage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background-color: palevioletred;
+    z-index: 0;
+    padding-top: 4rem;
+}
+
+.battlePage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background-color: pink;
+    z-index: 0;
+    padding-top: 4rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+.battleFiled {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.battleFiled__hero-img {
+    width: 20rem;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+}
+.fight {
+    display: flex;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+.loggs {
+    background-color: grey;
+    width: 100%;
+    height: 10rem;
+}
+
+
+
+
+
+/* SLIDER STYLES */
+
+.slider {
+    position: relative;
+    width: 80%;
+    max-width: 50rem;
+    overflow: hidden;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+.slider__wrapper {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    height: 40rem;
+}
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    width: 20rem;
+    height: 40rem;
+    min-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    gap: 2rem;
+}
+
+.slide img {
+  background-size: cover;
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title__text {
+    font-size: 40px;
+    color: brown;
+}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Dark adventures</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="gamePage-title">Registration</h1>
+        <ul class="settings">
+            <li class="setings__item">
+                <button>Страница Вбой</button>
+            </li>
+            <li class="setings__item">
+                <button>Настройки страница</button>
+            </li>
+            <li class="setings__item">
+                <button>Выбор игрока страница</button>
+            </li>
+        </ul>
+        <div class="music">
+            <audio id="player" controls autoplay loop>
+                <source src="./sounds/mainMenu.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </header>
+    <main>
+        <div class="registrationPage" id="registration">
+            <div class="container">
+                <div class="regForm">
+                    <label for="character-name">Create your Character</label>
+                    <input id="character-name" type="text" />
+                    <button class="button regForm__btn" disabled>Begin an adventure</button>
+                </div>
+            </div>
+        </div>
+        <div class="mainPage" id="main">
+            <div class="container">
+                <div class="regForm">
+                    <label for="character-name">Hello</label>
+                    <span class="user-name"></span>
+                    <span class="user-name"></span>
+                    <button class="button mainPage__btn">chose your Avatar</button>
+                </div>
+            </div>
+        </div>
+        <div class="playerPage" id="player">
+            <div class="container">
+                <h2>choose your avatar</h2>
+                <ul class="statistic">
+                    <li>
+                        Win <span>0</span>
+                    </li>
+                    <li>Lose <span>0</span></li>
+                </ul>
+            </div>
+            <div class="slider__wrapper">
+                <div class="slider">
+                    <div class="slides">
+                        <div class="slide">
+                            <img src="./images/player1.png" alt="Image 2">
+                            <div class="avatar__description">
+
+                                <p class="avatar_desc">Born in the storm-ridden highlands, she was trained from
+                                    childhood to
+                                    wield both blade and bow with unmatched precision. Her courage was forged in
+                                    countless
+                                    battles, where she defended her people against raiders, beasts, and dark sorcery.
+                                    Her
+                                    greatest triumph came when she faced the dreaded Lich King, striking a holy arrow
+                                    through
+                                    his eye with unerring aim, ending his reign of terror. Now, songs are sung of her as
+                                    a
+                                    living legend, the warrior whose will was as unbreakable as steel and whose aim
+                                    never
+                                    faltered.</p>
+                                <button class="button hero-btn">this is my HERO</button>
+
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="./images/player3.png" alt="Image 2">
+                            <div class="avatar__description">
+
+                                <p class="avatar_desc">Born in the storm-ridden highlands, she was trained from
+                                    childhood to
+                                    wield both blade and bow with unmatched precision. Her courage was forged in
+                                    countless
+                                    battles, where she defended her people against raiders, beasts, and dark sorcery.
+                                    Her
+                                    greatest triumph came when she faced the dreaded Lich King, striking a holy arrow
+                                    through
+                                    his eye with unerring aim, ending his reign of terror. Now, songs are sung of her as
+                                    a
+                                    living legend, the warrior whose will was as unbreakable as steel and whose aim
+                                    never
+                                    faltered.</p>
+                                <button class="button hero-btn">this is my HERO</button>
+
+
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="./images/player4.png" alt="Image 2">
+                            <div class="avatar__description">
+
+                                <p class="avatar_desc">He was adopted by humble peasants, yet rose through sheer
+                                    determination and honor. Though born with nothing, he trained tirelessly with wooden
+                                    sticks in the fields, dreaming of knighthood while laboring in the soil. His resolve
+                                    carried him to the service of local lords, where his courage and integrity set him
+                                    apart from other men. Guided by his unshakable sense of justice and loyalty, he
+                                    never strayed from his conscience. His greatest triumph came when he saved the king
+                                    himself, cleaving an assassin in two with a single strike and proving his place
+                                    among the royal guard. From that day forth, his name became a symbol of order and
+                                    righteousness across the realm.</p>
+                                <button class="button hero-btn">this is my HERO</button>
+
+
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="./images/player5.png" alt="Image 2">
+                            <div class="avatar__description">
+
+                                <p class="avatar_desc">Born in the storm-ridden highlands, she was trained from
+                                    childhood to
+                                    wield both blade and bow with unmatched precision. Her courage was forged in
+                                    countless
+                                    battles, where she defended her people against raiders, beasts, and dark sorcery.
+                                    Her
+                                    greatest triumph came when she faced the dreaded Lich King, striking a holy arrow
+                                    through
+                                    his eye with unerring aim, ending his reign of terror. Now, songs are sung of her as
+                                    a
+                                    living legend, the warrior whose will was as unbreakable as steel and whose aim
+                                    never
+                                    faltered.</p>
+                                <button class="button hero-btn">this is my HERO</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="prev" onclick="prevSlide()">&#10094;</button>
+                    <button class="next" onclick="nextSlide()">&#10095;</button>
+                </div>
+            </div>
+        </div>
+        <div class="beforeFightPage" id="beforeFight">
+            <div class="container">
+                <div class="regForm">
+                    <label for="character-name">It's time to you to fight</label>
+                    <span class="user-name"></span>
+                    <button class="button fight__btn">Fight for glory!</button>
+                </div>
+            </div>
+        </div>
+        <div class="battlePage" id="battle">
+            <div class="container">
+                <div class="battleFiled">
+                    <div class="battleFiled__hero">
+                        <span class="user-name"></span>
+                        <img class="battleFiled__hero-img" id="player-img" src="./images/player1.png" alt="player1">
+                        <progress class="battleFiled__hero-healthBar" value="150" min="0" max="150"></progress>
+                        <div class="battleFiled__enemy-healtLabel">0 /
+                            <span class="player-heath">0</span>
+                        </div>
+                    </div>
+                    <div class="battleFiled__options">
+                        <h3>Please pick 1 Attack zone and 2 Defence zones</h3>
+                        <button class="button choose-enemy">try your luck</button>
+                        <div class="fight">
+                            <div class="fight__box">
+                                <h3>Attack zones</h3>
+                                <ul class="fight__hero">
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title">Head</label>
+                                        <input class="AttackOption-input" type="radio"  data-zone="head" readonly>
+                                    </li>
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title" >Neak</label>
+                                        <input class="AttackOption-input" type="radio"  data-zone="neck" readonly>
+                                    </li>
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title" >Body</label>
+                                        <input class="AttackOption-input" type="radio" data-zone="body" readonly>
+                                    </li>
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title">Belly</label>
+                                        <input class="AttackOption-input" type="radio" data-zone="belly" readonly>
+                                    </li>
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title">Legs</label>
+                                        <input class="AttackOption-input" type="radio" data-zone="legs" readonly>
+                                    </li>
+                                </ul>
+                                <button class="button reset-attack-inputs">reset my choice</button>
+                            </div>
+                            <div class="fight__box">
+                                <h3>Defence zones</h3>
+                                <ul class="fight__enemy">
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title">Head</label>
+                                        <input class="DefenceOption-input" type="radio" data-zone="head" readonly>
+                                    </li>
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title">Neak</label>
+                                        <input class="DefenceOption-input" type="radio" data-zone="neck" readonly>
+                                    </li>
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title">Body</label>
+                                        <input class="DefenceOption-input" type="radio" data-zone="body" readonly>
+                                    </li>
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title">Belly</label>
+                                        <input class="DefenceOption-input" type="radio" data-zone="belly" readonly>
+                                    </li>
+                                    <li class="fight__option">
+                                        <label class="AttackOption-title">Legs</label>
+                                        <input class="DefenceOption-input" type="radio" data-zone="legs" readonly>
+                                    </li>
+                                </ul>
+                                
+                            </div>
+
+                        </div>
+                        <button class="button start-fight">fight</button>
+                    </div>
+                    <div class="battleFiled__enemy">
+                        <span class="enemy-name"></span>
+                        <img class="battleFiled__hero-img" id="enemy-img" src="./images/question.png" alt="your enemy">
+                        <progress class="battleFiled__enemy-healthBar" value="150" min="0" max="150"></progress>
+                        <div class="battleFiled__enemy-healtLabel">0 /
+                            <span class="enemy-heath">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="loggs">
+                LOGS
+            </div>
+        </div>
+        <div class="settingsPage" id="settings"></div>
+
+    </main>
+</body>
+<script src="./script.js"></script>
+
+
+</html>
