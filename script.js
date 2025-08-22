@@ -20,6 +20,8 @@ const enemyName = document.querySelector('.enemy-name');
 let enemyHeath = document.querySelector('.enemy-heath');
 //PLAYER
 let playerHeath = document.querySelector('.player-heath');
+//LOGS
+const logs = document.querySelector('.logs');
 //wariables
 let currentEnemy = null;
 let currentPlayer = null
@@ -207,9 +209,9 @@ function playerAttack(inputs) {
     input.addEventListener('change', () => {
       let selected = [...inputs].filter(c => c.checked);
 
-      if (selected.length > 2) {
+      if (selected.length > 1) {
         input.checked = false;
-        alert("Hero alert: you can choose only two options!");
+        alert("Hero alert: you can choose only one options!");
         selected = [...inputs].filter(c => c.checked); 
       }
       playerAttackZones = selected.map(c => c.dataset.zone);
@@ -224,9 +226,9 @@ function playerDefence(inputs) {
     input.addEventListener('change', () => {
       let selected = [...inputs].filter(c => c.checked);
 
-      if (selected.length > 1) {
+      if (selected.length > 2) {
         input.checked = false;
-        alert("Hero alert: you can choose only one options!");
+        alert("Hero alert: you can choose only two options!");
         selected = [...inputs].filter(c => c.checked); 
       }
       playerDefenceZones = selected.map(c => c.dataset.zone);
@@ -250,55 +252,56 @@ resetAttackBtn.addEventListener('click', () => {
 
 //enemy turn
 fightBtn.addEventListener('click', function () {
-
-
   let EnemyAttackRate = getRandom(currentEnemy.minDmg, currentEnemy.maxDmg);
-  console.log(`${currentEnemy.name} нанес ${EnemyAttackRate} урона!`);
 
-  let EnemydefZones = getRandomZones(zones, currentEnemy.EnemydefZones);
-  console.log(`${currentEnemy.name} поставил защиту на ${EnemydefZones}`);
+  let EnemydefZones = getRandomZones(zones, currentEnemy.defendZones);
+  console.log(`${currentEnemy.name} поставил защиту на: ${EnemydefZones}`);
 
-  let EnemyattackZones = getRandomZones(zones, currentEnemy.EnemyattackZones);
-  console.log(`${currentEnemy.name} Атакует ${EnemyattackZones}`);
-
-  console.log(currentPlayer.minDmg, currentPlayer.maxDmg);
+  let EnemyattackZones = getRandomZones(zones, currentEnemy.attackZones);
+  console.log(`${currentEnemy.name} атакует зоны: ${EnemyattackZones}`);
 
   let playerAttackRate = getRandom(currentPlayer.minDmg, currentPlayer.maxDmg);
+  console.log(`${currentPlayer.name} готов нанести ${playerAttackRate} урона в зоны: ${playerAttackZones}`);
 
-  console.log(`${currentPlayer.name} нанес ${playerAttackRate} урона!`);
-
-  //console.log(currentEnemy.hp, currentPlayer.hp);
-
-
-  // Если зона атаки игрока не содержит зону защиты противника тогда игрок отнимается у противника здоровье на величину атаки playerHeath enemyHeath
-  console.log (EnemyattackZones, playerDefenceZones);
+  // === Атака врага ===
+  console.log(`⚔️ ${currentEnemy.name} атакует ${EnemyattackZones}, а ${currentPlayer.name} защищает ${playerDefenceZones}`);
   let EnemyAttackmatches = EnemyattackZones.filter(item => playerDefenceZones.includes(item));
-    if (EnemyAttackmatches.length === 0) {
-      console.log("защиты не было");
-      currentPlayer.hp -= EnemyAttackRate;
-      if (currentPlayer.hp <= 0) {
-        alert('you lose');
-        resetGame();
-      }
-      playerHeath.textContent = currentPlayer.hp;
-      //тут надо еще проверить не отрицательное ли здоровье у персонажа
-    } else {
-      console.log('Успешная зашита', EnemyAttackmatches)
-    }
 
-  let playerAttackmatches = playerAttackZones.filter(item => EnemydefZones.includes(item));
-    if (playerAttackmatches.length === 0) {
-      console.log("защиты не было");
-      currentEnemy.hp -= playerAttackRate;
-      if (currentEnemy.hp <= 0) {
-        alert('you won');
-        resetGame();
-      }
-      enemyHeath.textContent = currentEnemy.hp;
-      //тут надо еще проверить не отрицательное ли здоровье у персонажа
-    } else {
-      console.log('Успешная зашита', playerAttackmatches)
+  if (EnemyAttackmatches.length === 0) {
+    currentPlayer.hp -= EnemyAttackRate;
+    if (currentPlayer.hp < 0) currentPlayer.hp = 0;
+
+    console.log(` ${currentEnemy.name} попал! Нанес ${EnemyAttackRate} урона.`);
+    console.log(` Здоровье ${currentPlayer.name}: ${currentPlayer.hp}`);
+    playerHeath.textContent = currentPlayer.hp;
+
+    if (currentPlayer.hp <= 0) {
+      alert('You lose!');
+      resetGame();
     }
+  } else {
+    console.log(` ${currentPlayer.name} успешно защитился в зонах: ${EnemyAttackmatches}`);
+  }
+
+  // === Атака игрока ===
+  console.log(`⚔️ ${currentPlayer.name} атакует ${playerAttackZones}, а ${currentEnemy.name} защищает ${EnemydefZones}`);
+  let playerAttackmatches = playerAttackZones.filter(item => EnemydefZones.includes(item));
+
+  if (playerAttackmatches.length === 0) {
+    currentEnemy.hp -= playerAttackRate;
+    if (currentEnemy.hp < 0) currentEnemy.hp = 0;
+
+    console.log(` ${currentPlayer.name} попал! Нанес ${playerAttackRate} урона.`);
+    console.log(` Здоровье ${currentEnemy.name}: ${currentEnemy.hp}`);
+    enemyHeath.textContent = currentEnemy.hp;
+
+    if (currentEnemy.hp <= 0) {
+      alert('You won!');
+      resetGame();
+    }
+  } else {
+    console.log(` ${currentEnemy.name} успешно защитился в зонах: ${playerAttackmatches}`);
+  }
 });
 
 //reset game
