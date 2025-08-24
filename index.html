@@ -13,13 +13,13 @@
         <h1 class="gamePage-title">Registration</h1>
         <ul class="settings">
             <li class="setings__item">
-                <button>Страница Вбой</button>
+                <button class="fight-page">Страница Вбой</button>
             </li>
             <li class="setings__item">
-                <button>Настройки страница</button>
+                <button class="settings-btn">Settings</button>
             </li>
             <li class="setings__item">
-                <button>Выбор игрока страница</button>
+                <button class="player-page">Выбор игрока страница</button>
             </li>
         </ul>
         <div class="music">
@@ -150,11 +150,12 @@
             </div>
         </div>
         <div class="beforeFightPage" id="beforeFight">
-            <div class="container">
-                <div class="regForm">
-                    <label for="character-name">It's time to you to fight</label>
-                    <span class="user-name"></span>
-                    <button class="button fight__btn">Fight for glory!</button>
+            <div class="beforeFightPage__wrapper">
+                <div class="container">
+                    <div class="regForm">
+                        <label for="character-name">Well well well <span class="user-name"></span>,  now you're ready to start the adventure! </label>
+                        <button class="button fight__btn">Fight for glory!</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,64 +171,70 @@
                         </div>
                     </div>
                     <div class="battleFiled__options">
-                        <h3>Please pick 1 Attack zone and 2 Defence zones</h3>
-                        <button class="button choose-enemy">try your luck</button>
-                        <div class="fight">
-                            <div class="fight__box">
-                                <h3>Attack zones</h3>
-                                <ul class="fight__hero">
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title">Head</label>
-                                        <input class="AttackOption-input" type="radio"  data-zone="head" readonly>
-                                    </li>
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title" >Neak</label>
-                                        <input class="AttackOption-input" type="radio"  data-zone="neck" readonly>
-                                    </li>
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title" >Body</label>
-                                        <input class="AttackOption-input" type="radio" data-zone="body" readonly>
-                                    </li>
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title">Belly</label>
-                                        <input class="AttackOption-input" type="radio" data-zone="belly" readonly>
-                                    </li>
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title">Legs</label>
-                                        <input class="AttackOption-input" type="radio" data-zone="legs" readonly>
-                                    </li>
-                                </ul>
-                                <button class="button reset-attack-inputs">reset my choice</button>
-                            </div>
-                            <div class="fight__box">
-                                <h3>Defence zones</h3>
-                                <ul class="fight__enemy">
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title">Head</label>
-                                        <input class="DefenceOption-input" type="radio" data-zone="head" readonly>
-                                    </li>
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title">Neak</label>
-                                        <input class="DefenceOption-input" type="radio" data-zone="neck" readonly>
-                                    </li>
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title">Body</label>
-                                        <input class="DefenceOption-input" type="radio" data-zone="body" readonly>
-                                    </li>
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title">Belly</label>
-                                        <input class="DefenceOption-input" type="radio" data-zone="belly" readonly>
-                                    </li>
-                                    <li class="fight__option">
-                                        <label class="AttackOption-title">Legs</label>
-                                        <input class="DefenceOption-input" type="radio" data-zone="legs" readonly>
-                                    </li>
-                                </ul>
-                                
-                            </div>
-
+                        <div class="pick-enemy-box">
+                            <h3>At first pick your Enemy</h3>
+                            <button class="button choose-enemy">try your luck</button>
                         </div>
-                        <button class="button start-fight">fight</button>
+                        <div class="fight hidden">
+                            <h2>Please pick 1 Attack zone and 2 Defence zones</h2>
+                            <div class="fight__wrapper">
+                                <div class="fight__box">
+                                    <h3>Attack zones</h3>
+                                    <ul class="fight__hero">
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Head</label>
+                                            <input class="AttackOption-input" type="radio" data-zone="head" readonly>
+                                        </li>
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Neak</label>
+                                            <input class="AttackOption-input" type="radio" data-zone="neck" readonly>
+                                        </li>
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Body</label>
+                                            <input class="AttackOption-input" type="radio" data-zone="body" readonly>
+                                        </li>
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Belly</label>
+                                            <input class="AttackOption-input" type="radio" data-zone="belly" readonly>
+                                        </li>
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Legs</label>
+                                            <input class="AttackOption-input" type="radio" data-zone="legs" readonly>
+                                        </li>
+                                    </ul>
+                                    
+                                </div>
+                                <div class="fight__box">
+                                    <h3>Defence zones</h3>
+                                    <ul class="fight__enemy">
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Head</label>
+                                            <input class="DefenceOption-input" type="radio" data-zone="head" readonly>
+                                        </li>
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Neak</label>
+                                            <input class="DefenceOption-input" type="radio" data-zone="neck" readonly>
+                                        </li>
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Body</label>
+                                            <input class="DefenceOption-input" type="radio" data-zone="body" readonly>
+                                        </li>
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Belly</label>
+                                            <input class="DefenceOption-input" type="radio" data-zone="belly" readonly>
+                                        </li>
+                                        <li class="fight__option">
+                                            <label class="AttackOption-title">Legs</label>
+                                            <input class="DefenceOption-input" type="radio" data-zone="legs" readonly>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <button class="button reset-attack-inputs">reset my choice</button>
+                            <button class="button start-fight is-disabled">fight</button>
+                        </div>
+
                     </div>
                     <div class="battleFiled__enemy">
                         <span class="enemy-name"></span>
@@ -239,12 +246,30 @@
                     </div>
                 </div>
             </div>
-            <ul class="loggs">
-                LOGS
-            </ul>
-        </div>
-        <div class="settingsPage" id="settings"></div>
+            <div class="logs__wrapper">
+                <h2 class="logs__title">BATTLE LOGS</h2>
+                <ul class="logs">
 
+                </ul>
+
+            </div>
+        </div>
+        <div class="settingsPage" id="settings">
+            <div class="container">
+                <h1 class="settings__title">Settings page</h1>
+                <div class="settings__wrapper">
+                    <div class="settings__option">
+                        <label for="character-name-settings">Change your character name</label>
+                        <input id="character-name-settings" type="text" />
+                        <button class="button change-name-btn">enter a new name</button>
+                    </div>
+                    <div class="settings__option">
+                        <label for="character-name">Change the music</label>
+                        <button class="button">change</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 <script src="./script.js"></script>

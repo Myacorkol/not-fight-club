@@ -12,6 +12,13 @@ mainPageBtn = document.querySelector('.mainPage__btn');
 playerPage = document.getElementById('player');
 playerPageBtns = document.querySelectorAll('.hero-btn');
 beforeFightPage = document.getElementById('beforeFight');
+settingsPage = document.getElementById('settings');
+settingsPageBtn = document.querySelector('.settings-btn');
+changeNameBtn = document.querySelector('.change-name-btn');
+changeNameInput = document.getElementById('character-name-settings');
+headerBattleBtn = document.querySelector('.fight-page');
+headerPlayerPage = document.querySelector('.player-page');
+
 //ENEMY
 const fightBtn = document.querySelector('.start-fight');
 const enemyChooseBtn = document.querySelector('.choose-enemy');
@@ -24,7 +31,7 @@ let playerHeath = document.querySelector('.player-heath');
 const logs = document.querySelector('.logs');
 //wariables
 let currentEnemy = null;
-let currentPlayer = null
+let currentPlayer = null;
 
 //AVATARS
 const heroes = ['zena', 'chief', 'paladin', 'mage'];
@@ -66,7 +73,7 @@ let playerAttackZones = [];
 const enemies = [
 
   { img: "./images/enemy1.png",
-    name: "wind Mage",
+    name: "WIND MAGE",
     hp: 350,
     minDmg: 23,
     maxDmg: 140,
@@ -75,7 +82,7 @@ const enemies = [
   },
 
   { img: "./images/enemy2.png",
-    name: "wind Mage",
+    name: "SKELETON",
     hp: 570,
     minDmg: 15,
     maxDmg: 83,
@@ -84,7 +91,7 @@ const enemies = [
   },
 
   { img: "./images/enemy3.png",
-    name: "Skeletor",
+    name: "POISON SPIDER",
     hp: 330,
     minDmg: 12,
     maxDmg: 120,
@@ -102,7 +109,7 @@ const enemies = [
   },
 
   { img: "./images/enemy5.png",
-    name: "Mr puk",
+    name: "Angry Octopus",
     hp: 795,
     minDmg: 50,
     maxDmg: 50,
@@ -133,7 +140,7 @@ registrationBtn.addEventListener('click', function () {
 
         userNames.forEach(function (name) {
             name.textContent = savedName;
-        })
+        });
     }
     registration.style.zIndex = 1;
     mainPage.style.zIndex = 2;
@@ -169,8 +176,58 @@ openBattleField.addEventListener('click', function () {
   BattleFieldPage.style.zIndex = 2;
 });
 
-// BATTLE PAGE
+// SETTINGS HEADER
+function closeAllPages () {
+  registrationPage.style.zIndex = 0;
+  mainPage.style.zIndex = 0;
+  playerPage.style.zIndex = 0;
+  beforeFightPage.style.zIndex = 0;
+  settingsPage.style.zIndex = 0;
+}
 
+settingsPageBtn.addEventListener('click', function () {
+  const userName = localStorage.getItem("userName");
+  if (userName) {
+    closeAllPages();
+    settingsPage.style.zIndex = 2;
+  }else {
+    alert('at first you need to chose your character name');
+  }
+})
+changeNameBtn.addEventListener('click', function () {
+  const name = changeNameInput.value.trim();
+  if (name.length > 2) {
+        localStorage.setItem("userName", name);
+        console.log(`Имя "${name}" сохранено в localStorage!`);
+        const savedName = localStorage.getItem('userName');
+        userNames.forEach(function (name) {
+            name.textContent = savedName;
+        });
+    }
+  alert('New name saved successfully');
+})
+headerBattleBtn.addEventListener('click', function () {
+  const userName = localStorage.getItem("userName");
+  if (!userName) {
+    alert('At first you need to choose your character name');
+    return;
+  }
+  if (currentPlayer === null) {
+    alert('At first you need to choose your character avatar');
+    return;
+  }
+  closeAllPages();
+  beforeFightPage.style.zIndex = 2;
+});
+headerPlayerPage.addEventListener('click', function () {
+  const userName = localStorage.getItem("userName");
+  if (userName) {
+    closeAllPages();
+  playerPage.style.zIndex = 2;
+  }else {
+    alert('at first you need to chose your character name');
+  }
+})
 //random enemy
 function getRandomEnemy(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -180,13 +237,9 @@ function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function getRandomZones(zones, maxCount) {
-  // сколько зон выбираем (от 1 до maxCount)
+
   const count = Math.floor(Math.random() * maxCount) + 1;
-
-  // копия массива и перемешивание
   const shuffled = [...zones].sort(() => Math.random() - 0.5);
-
-  // возвращаем нужное количество зон
   return shuffled.slice(0, count);
 }
 
@@ -197,7 +250,8 @@ enemyChooseBtn.addEventListener('click', function (){
   enemyImg.src = currentEnemy.img;
   enemyName.textContent = currentEnemy.name;
   enemyHeath.textContent = currentEnemy.hp;
-
+  document.querySelector('.fight').classList.remove('hidden');
+  document.querySelector('.pick-enemy-box').classList.add('hidden');
 });
 //player turn
 const attackPlayerInputs = document.querySelectorAll('.AttackOption-input');
@@ -215,7 +269,6 @@ function playerAttack(inputs) {
         selected = [...inputs].filter(c => c.checked); 
       }
       playerAttackZones = selected.map(c => c.dataset.zone);
-      console.log(playerAttackZones);
     });
   });
 };
@@ -232,47 +285,63 @@ function playerDefence(inputs) {
         selected = [...inputs].filter(c => c.checked); 
       }
       playerDefenceZones = selected.map(c => c.dataset.zone);
-      console.log(playerDefenceZones);
+      fightBtn.classList.remove('is-disabled'); 
     });
   });
 };
-  playerAttack(attackPlayerInputs);
-  playerDefence(deffencePlayerInputs);
+playerAttack(attackPlayerInputs);
+playerDefence(deffencePlayerInputs);
 
 resetAttackBtn.addEventListener('click', () => {
   attackPlayerInputs.forEach(input => {
     input.checked = false;
+    fightBtn.disabled = true;
   });
   deffencePlayerInputs.forEach(input => {
     input.checked = false;
+    fightBtn.disabled = true;
   });
 });
 
 
 
 //enemy turn
-fightBtn.addEventListener('click', function () {
-  let EnemyAttackRate = getRandom(currentEnemy.minDmg, currentEnemy.maxDmg);
-
+fightBtn.addEventListener('click', function (e) {
+  if (fightBtn.classList.contains('is-disabled')) {
+    e.preventDefault();
+    alert('Сначала выбери 2 опции атаки');
+    return;
+  }
+  const log = document.createElement('li');
+  let logText = "";
+  
   let EnemydefZones = getRandomZones(zones, currentEnemy.defendZones);
-  console.log(`${currentEnemy.name} поставил защиту на: ${EnemydefZones}`);
+  logText += `<span style="color: red; font-size: 24px">${currentEnemy.name}</span>
+  protects:
+   <span style="color: yellow; font-size: 24px">${EnemydefZones};</span> `;
 
   let EnemyattackZones = getRandomZones(zones, currentEnemy.attackZones);
-  console.log(`${currentEnemy.name} атакует зоны: ${EnemyattackZones}`);
-
+  let EnemyAttackRate = getRandom(currentEnemy.minDmg, currentEnemy.maxDmg);
   let playerAttackRate = getRandom(currentPlayer.minDmg, currentPlayer.maxDmg);
-  console.log(`${currentPlayer.name} готов нанести ${playerAttackRate} урона в зоны: ${playerAttackZones}`);
 
-  // === Атака врага ===
-  console.log(`⚔️ ${currentEnemy.name} атакует ${EnemyattackZones}, а ${currentPlayer.name} защищает ${playerDefenceZones}`);
+  // === Enemy Attack ===
+  const localUserName = localStorage.getItem("userName");
+
+  logText += `<span style="color: red; font-size: 24px">${currentEnemy.name}</span> Attack
+   <span style="color: yellow; font-size: 24px">${EnemyattackZones}</span>
+   ,but 
+    <span style="color: green; font-size: 24px">${localUserName}</span>
+     protects
+     <span style="color: green; font-size: 24px">${playerDefenceZones};</span> `;
+
   let EnemyAttackmatches = EnemyattackZones.filter(item => playerDefenceZones.includes(item));
 
   if (EnemyAttackmatches.length === 0) {
     currentPlayer.hp -= EnemyAttackRate;
     if (currentPlayer.hp < 0) currentPlayer.hp = 0;
 
-    console.log(` ${currentEnemy.name} попал! Нанес ${EnemyAttackRate} урона.`);
-    console.log(` Здоровье ${currentPlayer.name}: ${currentPlayer.hp}`);
+    logText += `<span style="color: red; font-size: 24px">${currentEnemy.name}</span>  hit the target <span style="color: red; font-size: 24px">${EnemyAttackRate}</span>;  `;
+
     playerHeath.textContent = currentPlayer.hp;
 
     if (currentPlayer.hp <= 0) {
@@ -280,28 +349,39 @@ fightBtn.addEventListener('click', function () {
       resetGame();
     }
   } else {
-    console.log(` ${currentPlayer.name} успешно защитился в зонах: ${EnemyAttackmatches}`);
+    logText += `<span style="color: red; font-size: 24px">${localUserName}</span>
+     successfully defended: 
+    <span style="color: red; font-size: 24px">${EnemyAttackmatches};</span>  `;
   }
 
-  // === Атака игрока ===
-  console.log(`⚔️ ${currentPlayer.name} атакует ${playerAttackZones}, а ${currentEnemy.name} защищает ${EnemydefZones}`);
+  // === Player Attack ===
+  logText += `<span style="color: green; font-size: 24px">${localUserName}</span> attack
+   <span style="color: green; font-size: 20px">${playerAttackZones}</span>, and
+    <span style="color: red; font-size: 24px">${currentEnemy.name}</span>  deffend 
+    <span style="color: green; font-size: 20px">${EnemydefZones};</span>`;
+
   let playerAttackmatches = playerAttackZones.filter(item => EnemydefZones.includes(item));
 
   if (playerAttackmatches.length === 0) {
     currentEnemy.hp -= playerAttackRate;
     if (currentEnemy.hp < 0) currentEnemy.hp = 0;
 
-    console.log(` ${currentPlayer.name} попал! Нанес ${playerAttackRate} урона.`);
-    console.log(` Здоровье ${currentEnemy.name}: ${currentEnemy.hp}`);
-    enemyHeath.textContent = currentEnemy.hp;
+    logText += `<span style="color: red; font-size: 24px">${localUserName}</span>
+     hit the target
+      <span style="color: red; font-size: 20px">${playerAttackRate}</span>
+       damage; `;
 
     if (currentEnemy.hp <= 0) {
       alert('You won!');
       resetGame();
     }
   } else {
-    console.log(` ${currentEnemy.name} успешно защитился в зонах: ${playerAttackmatches}`);
+    logText += `<span style="color: red; font-size: 24px">${currentEnemy.name}</span> successfully defended:
+     <span style="color: green; font-size: 20px">${playerAttackmatches}; </span> `;
   }
+  log.innerHTML = logText;
+  logs.appendChild(log);
+  logs.scrollTop = logs.scrollHeight;
 });
 
 //reset game
@@ -321,10 +401,6 @@ function resetGame() {
   enemyHeath.textContent = "";
 
 }
-
-
-
-
 
 
 let currentSlide = 0; // Текущий индекс слайда

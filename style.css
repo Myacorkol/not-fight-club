@@ -17,6 +17,9 @@ body {
     min-height: 100vh;
     background: linear-gradient(#ECEFFE, #CED6FB);
 }
+.hidden {
+    display: none !important;
+}
 button {
   background: none;
   border: none;
@@ -26,6 +29,7 @@ button {
   color: inherit;     
   cursor: pointer;
   outline: none;
+  border-radius: 1rem;
 }
 
 ul,
@@ -41,13 +45,18 @@ li {
 }
 input {
   padding: 10px 14px;
-  border-radius: 8px;      /* немного закругленные углы */
+  border-radius: 8px;      
   font: 16px/1.4 system-ui, sans-serif;
   outline: none;
   transition: 0.3s ease;   
   border: 1px solid red;
 }
-
+.is-disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  background-color: grey;
+  color: #fff;
+}
 input:hover {
   border-color: #4f46e5;   
   box-shadow: 0 0 6px rgba(79,70,229,0.4); 
@@ -91,6 +100,7 @@ main {
 }
 .settings {
     display: flex;
+    gap: 1rem;
     justify-content: space-between;
     align-items: center;
     width: 20rem;
@@ -124,8 +134,8 @@ main {
 }
 .button {
     padding: .5rem 1rem;
-    background-color: bisque;
-    color: grey;
+    background-color: darkgoldenrod;
+    color: white;
     transition: all .4s ease;
 }
 .regForm__btn.active {
@@ -150,7 +160,10 @@ main {
     position: absolute;
     inset: 0;
     width: 100%;
-    background-color: lightslategray;
+    background: url('./images/playerPage-bg.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
     z-index: 2;
     padding-top: 4rem;
 }
@@ -173,16 +186,26 @@ main {
     position: absolute;
     inset: 0;
     width: 100%;
-    background-color: palevioletred;
+    background: url('./images/beforeFightPage.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
     z-index: 0;
     padding-top: 4rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .battlePage {
     position: absolute;
     inset: 0;
     width: 100%;
-    background-color: pink;
+    background: url('./images/battlePage-bg.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
     z-index: 0;
     padding-top: 4rem; 
     display: flex;
@@ -193,25 +216,97 @@ main {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-top: 2rem;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    border-radius: 2rem;
+    padding: .5rem 0;
 }
 .battleFiled__hero-img {
-    width: 20rem;
+    width: 15rem;
     height: auto;
     background-size: cover;
     background-position: center;
 }
-.fight {
+.user-name,
+.enemy-name {
+    margin: .8rem 0;
+    font-size: 1.5rem;
+}
+
+.fight__wrapper{
     display: flex;
+    justify-content: center;
     gap: 2rem;
     margin: 3rem 0;
 }
-.loggs {
-    background-color: grey;
+.start-fight {
+    margin-left: 2rem;
+    background-color: red;
+    color: #fff;
+    text-transform: uppercase;
+    transition: all .5s ease;
+    border-radius: 1rem;
+
+}
+.start-fight:hover {
+    background-color: #000;
+    color: #fff;
+}
+.logs__wrapper {
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+}
+.logs__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    text-align: center;
+}
+.logs {
     width: 100%;
-    height: 10rem;
+    padding: 1rem;
+    height: 15rem;         
+    overflow-y: auto; 
+
+}
+.logs li {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
 }
 
-
+.settingsPage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: url('./images/battlePage-bg.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 0;
+    padding-top: 4rem; 
+    display: flex;
+    flex-direction: column;
+}
+.settings__title {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 2rem;
+}
+.settings__wrapper {
+    background-color: aqua;
+    width: 60rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.settings__option {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
 
 
 
@@ -235,6 +330,7 @@ main {
 .slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    background-color: grey;
 }
 
 .slide {
@@ -244,6 +340,7 @@ main {
     box-sizing: border-box;
     display: flex;
     gap: 2rem;
+    background-color: grey;
 }
 
 .slide img {
@@ -253,7 +350,25 @@ main {
   object-fit: cover;
   margin: 0 auto;
 }
+.avatar_desc {
+    font-size: 1.3rem;
+    color: #000;
+    padding-top: 2rem;
+    padding-right: 1rem;
+}
+.hero-btn {
+    margin-top: 1rem;
+    background-color: #000;
+    color: white;
+    border: .1rem solid #4c3c1d;
+    border-radius: .2rem;
+}
+.hero-btn:hover {
+    color: black;
+    background-color: white;
+    border: .1rem solid yellow;
 
+}
 .prev, .next {
     position: absolute;
     top: 50%;
