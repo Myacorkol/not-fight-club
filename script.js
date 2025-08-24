@@ -295,11 +295,11 @@ playerDefence(deffencePlayerInputs);
 resetAttackBtn.addEventListener('click', () => {
   attackPlayerInputs.forEach(input => {
     input.checked = false;
-    fightBtn.disabled = true;
+    fightBtn.classList.add('is-disabled'); 
   });
   deffencePlayerInputs.forEach(input => {
     input.checked = false;
-    fightBtn.disabled = true;
+    fightBtn.classList.add('is-disabled');
   });
 });
 
@@ -370,6 +370,7 @@ fightBtn.addEventListener('click', function (e) {
      hit the target
       <span style="color: red; font-size: 20px">${playerAttackRate}</span>
        damage; `;
+      enemyHeath.textContent = currentEnemy.hp; 
 
     if (currentEnemy.hp <= 0) {
       alert('You won!');

@@ -242,8 +242,6 @@ main {
 }
 .start-fight {
     margin-left: 2rem;
-    background-color: red;
-    color: #fff;
     text-transform: uppercase;
     transition: all .5s ease;
     border-radius: 1rem;
