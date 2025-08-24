@@ -27,6 +27,11 @@ const enemyName = document.querySelector('.enemy-name');
 let enemyHeath = document.querySelector('.enemy-heath');
 //PLAYER
 let playerHeath = document.querySelector('.player-heath');
+
+// BEFOREBATTLE PAGE
+const openBattleField = document.querySelector('.fight__btn');
+const BattleFieldPage = document.getElementById('battle');
+
 //LOGS
 const logs = document.querySelector('.logs');
 //wariables
@@ -120,6 +125,15 @@ const enemies = [
 
 const zones = ["head", "neck", "body", "belly", "legs"];
 
+function closeAllPages () {
+  registrationPage.style.zIndex = 0;
+  mainPage.style.zIndex = 0;
+  playerPage.style.zIndex = 0;
+  beforeFightPage.style.zIndex = 0;
+  settingsPage.style.zIndex = 0;
+  BattleFieldPage.zIndex = 0
+}
+
 //REGISTRATION PAGE 
 inputName.addEventListener('input', function () {
     const value = inputName.value.trim();
@@ -142,13 +156,13 @@ registrationBtn.addEventListener('click', function () {
             name.textContent = savedName;
         });
     }
-    registration.style.zIndex = 1;
-    mainPage.style.zIndex = 2;
+    closeAllPages();
+    mainPage.style.zIndex = 1;
 })
 // MAINPAGE
 mainPageBtn.addEventListener('click', function () {
-    mainPage.style.zIndex = 0;
-    playerPage.style.zIndex = 2;
+    closeAllPages();
+    playerPage.style.zIndex = 1;
 
     currentTrack = (currentTrack + 1) % tracks.length;
     player.src = tracks[currentTrack];
@@ -163,33 +177,22 @@ playerPageBtns.forEach(function (btn, index) {
       console.log('игрок выбран');
       document.getElementById('player-img').src = currentPlayer.img;
       playerHeath.textContent = currentPlayer.hp;
-      playerPage.style.zIndex = 1;
-      beforeFightPage.style.zIndex = 2;
+      beforeFightPage.style.zIndex = 5;
     })
 })
-// BEFOREBATTLE PAGE
-const openBattleField = document.querySelector('.fight__btn');
-const BattleFieldPage = document.getElementById('battle');
 
 openBattleField.addEventListener('click', function () {
-  beforeFightPage.style.zIndex = 1;
+  closeAllPages();
   BattleFieldPage.style.zIndex = 2;
 });
 
 // SETTINGS HEADER
-function closeAllPages () {
-  registrationPage.style.zIndex = 0;
-  mainPage.style.zIndex = 0;
-  playerPage.style.zIndex = 0;
-  beforeFightPage.style.zIndex = 0;
-  settingsPage.style.zIndex = 0;
-}
 
 settingsPageBtn.addEventListener('click', function () {
   const userName = localStorage.getItem("userName");
   if (userName) {
     closeAllPages();
-    settingsPage.style.zIndex = 2;
+    settingsPage.style.zIndex = 5;
   }else {
     alert('at first you need to chose your character name');
   }
@@ -217,13 +220,13 @@ headerBattleBtn.addEventListener('click', function () {
     return;
   }
   closeAllPages();
-  beforeFightPage.style.zIndex = 2;
+  beforeFightPage.style.zIndex = 9;
 });
 headerPlayerPage.addEventListener('click', function () {
   const userName = localStorage.getItem("userName");
   if (userName) {
-    closeAllPages();
-  playerPage.style.zIndex = 2;
+  closeAllPages();
+  playerPage.style.zIndex = 5;
   }else {
     alert('at first you need to chose your character name');
   }
@@ -316,9 +319,9 @@ fightBtn.addEventListener('click', function (e) {
   let logText = "";
   
   let EnemydefZones = getRandomZones(zones, currentEnemy.defendZones);
-  logText += `<span style="color: red; font-size: 24px">${currentEnemy.name}</span>
-  protects:
-   <span style="color: yellow; font-size: 24px">${EnemydefZones};</span> `;
+  // logText += `<span style="color: red; font-size: 24px">${currentEnemy.name}</span>
+  // protects:
+  //  <span style="color: yellow; font-size: 24px">${EnemydefZones};</span> `;
 
   let EnemyattackZones = getRandomZones(zones, currentEnemy.attackZones);
   let EnemyAttackRate = getRandom(currentEnemy.minDmg, currentEnemy.maxDmg);
@@ -327,7 +330,10 @@ fightBtn.addEventListener('click', function (e) {
   // === Enemy Attack ===
   const localUserName = localStorage.getItem("userName");
 
-  logText += `<span style="color: red; font-size: 24px">${currentEnemy.name}</span> Attack
+  logText += `<span style="color: red; font-size: 24px">${currentEnemy.name}</span> 
+  protects:
+   <span style="color: yellow; font-size: 24px">${EnemydefZones};</span>
+  Attack:
    <span style="color: yellow; font-size: 24px">${EnemyattackZones}</span>
    ,but 
     <span style="color: green; font-size: 24px">${localUserName}</span>
@@ -394,12 +400,14 @@ function resetGame() {
   attackPlayerInputs.forEach(input => input.checked = false);
   deffencePlayerInputs.forEach(input => input.checked = false);
 
-  // Сбрасываем врага
+  // Reset enemy 
   currentEnemy = null;
   enemyChooseBtn.disabled = false;
   enemyImg.src = "./images/question.png";
   enemyName.textContent = "";
   enemyHeath.textContent = "";
+  document.querySelector('.fight').classList.add('hidden');
+  document.querySelector('.pick-enemy-box').classList.remove('hidden');
 
 }
 
