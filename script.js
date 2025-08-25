@@ -10,14 +10,23 @@ window.addEventListener("load", () => {
   });
 
 function nextTrack() {
-  currentTrack++;
   if (currentTrack >= tracks.length) {
     currentTrack = 0;
   }
   player.src = tracks[currentTrack];
   player.play();
 }
+function changeTrack() {
+  currentTrack ++;
+  if (currentTrack >= tracks.length) {
+    
+    currentTrack = 0;
+  }
+  player.src = tracks[currentTrack];
+  player.play();
+}
 //GAMEFLOW
+headerTitle = document.querySelector('.gamePage-title');
 registrationPage = document.getElementById('registration');
 inputName = document.getElementById('character-name');
 registrationBtn = document.querySelector('.regForm__btn');
@@ -179,9 +188,11 @@ registrationBtn.addEventListener('click', function () {
         userNames.forEach(function (name) {
             name.textContent = savedName;
         });
+        currentTrack = 1;
         nextTrack();
     }
     closeAllPages();
+    headerTitle.textContent = 'Tavern';
     mainPage.style.zIndex = 1;
 })
 // MAINPAGE
@@ -199,8 +210,10 @@ playerPageBtns.forEach(function (btn, index) {
       document.getElementById('player-img').src = currentPlayer.img;
       playerHeath.textContent = currentPlayer.hp;
       beforeFightPage.style.zIndex = 5;
+      headerTitle.textContent = 'Before Fight';
       playerHealthBar.max = currentPlayer.hp;
       playerHealthBar.value = currentPlayer.hp;
+      currentTrack = 2;
       nextTrack();
     })
 })
@@ -208,6 +221,7 @@ playerPageBtns.forEach(function (btn, index) {
 openBattleField.addEventListener('click', function () {
   closeAllPages();
   BattleFieldPage.style.zIndex = 2;
+  headerTitle.textContent = 'Fight for glory';
 });
 
 // SETTINGS HEADER
@@ -217,6 +231,7 @@ settingsPageBtn.addEventListener('click', function () {
   if (userName) {
     closeAllPages();
     settingsPage.style.zIndex = 5;
+    headerTitle.textContent = 'Settings';
   }else {
     alert('at first you need to chose your character name');
   }
@@ -245,12 +260,14 @@ headerBattleBtn.addEventListener('click', function () {
   }
   closeAllPages();
   beforeFightPage.style.zIndex = 9;
+  headerTitle.textContent = 'Before Fight';
 });
 headerPlayerPage.addEventListener('click', function () {
   const userName = localStorage.getItem("userName");
   if (userName) {
   closeAllPages();
   playerPage.style.zIndex = 5;
+  headerTitle.textContent = 'Tavern';
   }else {
     alert('at first you need to chose your character name');
   }
