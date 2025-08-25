@@ -19,6 +19,16 @@ changeNameInput = document.getElementById('character-name-settings');
 headerBattleBtn = document.querySelector('.fight-page');
 headerPlayerPage = document.querySelector('.player-page');
 
+const enemyHealthBar = document.querySelector('.battleFiled__enemy-healthBar');
+const playerHealthBar = document.querySelector('.battleFiled__hero-healthBar');
+
+function updateHealthBars() {
+  enemyHealthBar.value = currentEnemy.hp;
+  playerHealthBar.value = currentPlayer.hp;
+  enemyHeath.textContent = currentEnemy.hp;
+  playerHeath.textContent = currentPlayer.hp;
+}
+
 //ENEMY
 const fightBtn = document.querySelector('.start-fight');
 const enemyChooseBtn = document.querySelector('.choose-enemy');
@@ -124,14 +134,13 @@ const enemies = [
 ];
 
 const zones = ["head", "neck", "body", "belly", "legs"];
+const pages = [
+  registrationPage, mainPage, playerPage,
+  beforeFightPage, settingsPage, BattleFieldPage
+];
 
 function closeAllPages () {
-  registrationPage.style.zIndex = 0;
-  mainPage.style.zIndex = 0;
-  playerPage.style.zIndex = 0;
-  beforeFightPage.style.zIndex = 0;
-  settingsPage.style.zIndex = 0;
-  BattleFieldPage.zIndex = 0
+  pages.forEach(page => page.style.zIndex = 0);
 }
 
 //REGISTRATION PAGE 
@@ -178,6 +187,8 @@ playerPageBtns.forEach(function (btn, index) {
       document.getElementById('player-img').src = currentPlayer.img;
       playerHeath.textContent = currentPlayer.hp;
       beforeFightPage.style.zIndex = 5;
+      playerHealthBar.max = currentPlayer.hp;
+      playerHealthBar.value = currentPlayer.hp;
     })
 })
 
@@ -253,6 +264,8 @@ enemyChooseBtn.addEventListener('click', function (){
   enemyImg.src = currentEnemy.img;
   enemyName.textContent = currentEnemy.name;
   enemyHeath.textContent = currentEnemy.hp;
+  enemyHealthBar.max = currentEnemy.hp;
+  enemyHealthBar.value = currentEnemy.hp;
   document.querySelector('.fight').classList.remove('hidden');
   document.querySelector('.pick-enemy-box').classList.add('hidden');
 });
@@ -349,6 +362,7 @@ fightBtn.addEventListener('click', function (e) {
     logText += `<span style="color: red; font-size: 24px">${currentEnemy.name}</span>  hit the target <span style="color: red; font-size: 24px">${EnemyAttackRate}</span>;  `;
 
     playerHeath.textContent = currentPlayer.hp;
+    updateHealthBars();
 
     if (currentPlayer.hp <= 0) {
       alert('You lose!');
@@ -377,6 +391,7 @@ fightBtn.addEventListener('click', function (e) {
       <span style="color: red; font-size: 20px">${playerAttackRate}</span>
        damage; `;
       enemyHeath.textContent = currentEnemy.hp; 
+      updateHealthBars();
 
     if (currentEnemy.hp <= 0) {
       alert('You won!');
@@ -399,6 +414,8 @@ function resetGame() {
 
   attackPlayerInputs.forEach(input => input.checked = false);
   deffencePlayerInputs.forEach(input => input.checked = false);
+
+  updateHealthBars();
 
   // Reset enemy 
   currentEnemy = null;
