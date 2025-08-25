@@ -1,7 +1,22 @@
 //MUSIC
 const player = document.getElementById('player');
-const tracks = ["sounds/mainMenu.mp3", "sounds/character.mp3"];
+const tracks = ["sounds/mainMenu.mp3", "sounds/character.mp3", "sounds/battle.mp3"];
 let currentTrack = 0;
+
+window.addEventListener("load", () => {
+    const player = document.getElementById("player");
+    player.volume = 0.1; 
+    player.muted = false; 
+  });
+
+function nextTrack() {
+  currentTrack++;
+  if (currentTrack >= tracks.length) {
+    currentTrack = 0;
+  }
+  player.src = tracks[currentTrack];
+  player.play();
+}
 //GAMEFLOW
 registrationPage = document.getElementById('registration');
 inputName = document.getElementById('character-name');
@@ -164,6 +179,7 @@ registrationBtn.addEventListener('click', function () {
         userNames.forEach(function (name) {
             name.textContent = savedName;
         });
+        nextTrack();
     }
     closeAllPages();
     mainPage.style.zIndex = 1;
@@ -172,10 +188,6 @@ registrationBtn.addEventListener('click', function () {
 mainPageBtn.addEventListener('click', function () {
     closeAllPages();
     playerPage.style.zIndex = 1;
-
-    currentTrack = (currentTrack + 1) % tracks.length;
-    player.src = tracks[currentTrack];
-    player.play(); 
 })
 
 // PLAYER PAGE
@@ -189,6 +201,7 @@ playerPageBtns.forEach(function (btn, index) {
       beforeFightPage.style.zIndex = 5;
       playerHealthBar.max = currentPlayer.hp;
       playerHealthBar.value = currentPlayer.hp;
+      nextTrack();
     })
 })
 
